@@ -37,13 +37,14 @@ export const getLinksRoute: FastifyPluginAsyncZod = async server => {
       const { page, pageSize, searchQuery, sortBy, sortDirection } =
         request.query
 
-        const result = await getLinks({
+      const result = await getLinks({
         page,
         pageSize,
         searchQuery,
         sortBy,
         sortDirection,
       })
+
       const { total, links } = unwrapEither(result)
       return reply.status(201).send({ total, links })
     }

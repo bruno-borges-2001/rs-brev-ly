@@ -16,13 +16,14 @@ export async function findLink(
 ): Promise<Either<LinkNotFoundError, { id: string, url: string }>> {
   const { shortUrl } = findLinkInput.parse(input)
 
-  const link = await db.query.links.findFirst({
-    where: eq(schema.links.shortUrl, shortUrl),
-  })
+  const link = await db.select({
+    id: schema.links.id,
+    url: schema.links.url,
+  }).from(schema.links).where(eq(schema.links.shortUrl, shortUrl))
 
-  if (!link) {
+  if (link.length === 0) {
     return makeLeft(new LinkNotFoundError())
   }
 
-  return makeRight({ id: link.id, url: link.url })
+  return makeRight({ id: link[0].id, url: link[0].url })
 }
