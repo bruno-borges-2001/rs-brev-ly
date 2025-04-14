@@ -60,6 +60,7 @@ export default function CreateLinkForm() {
           placeholder="www.exemplo.com.br"
           {...register('originalUrl')}
           append={<ErrorMessage field="originalUrl" error={errors} />}
+          variant={errors.originalUrl?.message ? "error" : "default"}
         />
         <Controller
           name="shortUrl"
@@ -72,6 +73,7 @@ export default function CreateLinkForm() {
               {...field}
               value={field.value ?? ""}
               append={<ErrorMessage field="shortUrl" error={errors} />}
+              variant={errors.shortUrl?.message ? "error" : "default"}
             />
           )}
         />
