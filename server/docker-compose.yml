@@ -1,0 +1,31 @@
+services:
+  server:
+    build: .
+    container_name: brev-ly-server
+    ports:
+      - '3000:$PORT'
+    depends_on:
+      - pg
+    environment:
+      - PORT=$PORT
+      - DATABASE_URL=postgresql://docker:docker@pg:5432/brev-ly
+      - CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID
+      - CLOUDFLARE_ACCESS_KEY_ID=$CLOUDFLARE_ACCESS_KEY_ID
+      - CLOUDFLARE_SECRET_ACCESS_KEY=$CLOUDFLARE_SECRET_ACCESS_KEY
+      - CLOUDFLARE_BUCKET=$CLOUDFLARE_BUCKET
+      - CLOUDFLARE_PUBLIC_URL=$CLOUDFLARE_PUBLIC_URL
+
+  pg:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=brev-ly
+    volumes:
+      - './docker:/docker-entrypoint-initdb.d'
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:

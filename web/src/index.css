@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-blue-base: #2c46b1;
+  --color-blue-dark: #2c4091;
+
+  --color-red-danger: #b12c4d;
+
+  --font-sans: 'Open Sans', sans-serif;
+}
+
+@utility t-xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+@utility t-lg {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+@utility t-md {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 600;
+}
+
+@utility t-sm {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+@utility t-xs {
+  font-size: 0.625rem;
+  line-height: 0.875rem;
+  text-transform: uppercase;
+}
+
+body {
+  @apply font-sans bg-gray-200;
+}
