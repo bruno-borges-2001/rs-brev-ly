@@ -58,7 +58,6 @@ export async function exportLinks(
     new Transform({
       objectMode: true,
       transform(rows, _, done) {
-        console.log(rows)
         for (const row of rows) {
           this.push(row)
         }
