@@ -17,7 +17,23 @@ import { exportLinksRoute } from './routes/export-links'
 import { getLinksRoute } from './routes/get-links'
 import { increaseLinkAccessCountRoute } from './routes/increase-link-access-count'
 
-const server = fastify()
+const envToLogger = {
+  development: {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        translateTime: 'HH:MM:ss Z',
+        ignore: 'pid,hostname',
+      },
+    },
+  },
+  production: true,
+  test: false,
+} as const
+
+const server = fastify({
+  logger: envToLogger[env.NODE_ENV] ?? true,
+})
 
 server.setValidatorCompiler(validatorCompiler)
 server.setSerializerCompiler(serializerCompiler)
