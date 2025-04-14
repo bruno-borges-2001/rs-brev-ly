@@ -23,7 +23,9 @@ export default function Access() {
   }, [shortUrl, navigate])
 
   useEffect(() => {
-    handleRedirect()
+    // DEBOUNCE CRIADO PARA EVITAR CHAMADA DUPLA DEVIDO AO STRICT MODE DO REACT
+    const timeout = setTimeout(handleRedirect, 1000)
+    return () => clearTimeout(timeout)
   }, [handleRedirect])
 
   return (
